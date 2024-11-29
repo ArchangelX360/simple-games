@@ -1,5 +1,6 @@
+package se.dorne.minesweeper.app
+
 import se.dorne.minesweeper.gameengine.*
-import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
     val (numberOfColumns, numbersOfRows, numberOfMines) = when {
@@ -33,7 +34,7 @@ fun main(args: Array<String>) {
                     Outcome.LOST -> println("You lost!\n\n")
                 }
                 board.display(showEverything = true)
-                exitProcess(0)
+                return
             }
 
             GameState.Ongoing -> {}

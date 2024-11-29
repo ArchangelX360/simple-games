@@ -48,7 +48,7 @@ private fun play(board: Board, combinaison: List<ColorBulb>): Board = Board(
     played = board.played + evaluate(combinaison, board.solution)
 )
 
-internal fun evaluate(combinaison: List<ColorBulb>, solution: List<ColorBulb>): EvaluatedCombinaison {
+fun evaluate(combinaison: List<ColorBulb>, solution: List<ColorBulb>): EvaluatedCombinaison {
     val seenIndices = mutableSetOf<Int>()
     val correctlyPlaced = combinaison.withIndex().count { (userIndex, userBulb) ->
         when (userBulb) {
@@ -120,7 +120,7 @@ private enum class Marker(val displayChar: String, val explanation: String) {
     }
 }
 
-internal enum class ColorBulb(
+enum class ColorBulb(
     private val value: String,
 ) {
     RED("[31m"),
@@ -148,7 +148,7 @@ internal enum class ColorBulb(
 
 private fun List<ColorBulb>.display(): String = joinToString(" ") { it.display() }
 
-internal data class EvaluatedCombinaison(
+data class EvaluatedCombinaison(
     val combinaison: List<ColorBulb>,
     val correctlyPlaced: Int,
     val correctColorOnly: Int,

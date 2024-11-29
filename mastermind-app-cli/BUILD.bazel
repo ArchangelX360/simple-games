@@ -1,0 +1,28 @@
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_binary", "kt_jvm_test")
+
+kt_jvm_binary(
+    name = "app",
+    javac_opts = "//:j17",
+    kotlinc_opts = "//:k17",
+    main_class = "se.dorne.mastermind.app.ApplicationKt",
+    srcs = [
+        "src/jvmMain/kotlin/se/dorne/mastermind/app/Application.kt",
+    ],
+    deps = [],
+)
+
+kt_jvm_test(
+    name = "app_test",
+    javac_opts = "//:j17",
+    kotlinc_opts = "//:k17",
+    test_class = "se.dorne.mastermind.app.MainKtTest",
+    srcs = [
+        "src/jvmTest/kotlin/se/dorne/mastermind/app/ApplicationTest.kt",
+    ],
+    deps = [
+        ":app",
+        "@rules_kotlin//kotlin/compiler:kotlin-test",
+        "@rules_kotlin//kotlin/compiler:kotlin-test-junit",
+        "@maven//:junit_junit",
+    ],
+)

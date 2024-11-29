@@ -1,0 +1,13 @@
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+
+kt_jvm_library(
+    name = "engine",
+    javac_opts = "//:j17",
+    kotlinc_opts = "//:k17",
+    srcs = [
+        "src/commonMain/kotlin/se/dorne/minesweeper/gameengine/GameEngine.kt",
+    ],
+    visibility = [
+        "//minesweeper-app-cli:__pkg__",
+    ],
+)

@@ -1,0 +1,22 @@
+bazel_dep(name = "rules_kotlin", version = "2.0.0")
+bazel_dep(name = "rules_java", version = "8.5.1")
+bazel_dep(name = "rules_jvm_external", version = "6.6")
+
+register_toolchains("//:kotlin_toolchain")
+
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+maven.install(
+    version_conflict_policy = "pinned",
+    artifacts = [
+        "androidx.compose.foundation:foundation:1.7.5",
+        "androidx.collection:collection:1.4.0", # pinning for "androidx.compose.foundation:foundation"
+        "androidx.lifecycle:lifecycle-runtime:2.8.3", # pinning for "androidx.compose.foundation:foundation"
+        "junit:junit:4.13.2",
+    ],
+    repositories = [
+        "https://repo1.maven.org/maven2",
+        "https://maven.google.com/",
+        "https://maven.pkg.jetbrains.space/public/p/compose/dev"
+    ],
+)
+use_repo(maven, "maven")

@@ -1,0 +1,14 @@
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_binary")
+
+kt_jvm_binary(
+    name = "app",
+    javac_opts = "//:j17",
+    kotlinc_opts = "//:k17",
+    main_class = "se.dorne.minesweeper.app.ApplicationKt",
+    srcs = [
+        "src/jvmMain/kotlin/se/dorne/minesweeper/app/Application.kt",
+    ],
+    deps = [
+        "//minesweeper-engine:engine",
+    ],
+)

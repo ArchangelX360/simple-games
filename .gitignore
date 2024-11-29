@@ -15,3 +15,7 @@ captures
 !*.xcodeproj/project.xcworkspace/
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
+bazel-bin
+bazel-out
+bazel-simple-games
+bazel-testlogs
