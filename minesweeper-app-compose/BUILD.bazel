@@ -1,0 +1,13 @@
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_binary")
+
+kt_jvm_binary(
+    name = "desktop",
+    javac_opts = "//:j17",
+    kotlinc_opts = "//:k17",
+    main_class = "se.dorne.minesweeper.app.ApplicationKt",
+    runtime_deps = [
+        "//minesweeper-app-compose/src/commonMain:lib",
+        "//minesweeper-app-compose/src/desktopMain:lib",
+        "@maven//:org_jetbrains_compose_desktop_desktop_jvm_macos_arm64", # TODO: must be resolved by platform
+    ],
+)

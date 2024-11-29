@@ -1,0 +1,4 @@
+# From https://github.com/bazelbuild/rules_android/blob/3456bd3de27a35533b86356171ef47419fd91d22/examples/basicapp/.bazelrc
+common --experimental_google_legacy_api
+common --experimental_enable_android_migration_apis
+common --android_sdk=@androidsdk//:sdk

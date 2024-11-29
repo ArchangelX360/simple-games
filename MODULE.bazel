@@ -1,22 +1,49 @@
 bazel_dep(name = "rules_kotlin", version = "2.0.0")
 bazel_dep(name = "rules_java", version = "8.5.1")
 bazel_dep(name = "rules_jvm_external", version = "6.6")
+bazel_dep(name = "bazel_skylib", version = "1.7.1")
+bazel_dep(name = "rules_android", version = "0.5.1")
 
-register_toolchains("//:kotlin_toolchain")
+android_sdk_repository_extension = use_extension("@rules_android//rules/android_sdk_repository:rule.bzl", "android_sdk_repository_extension")
+use_repo(android_sdk_repository_extension, "androidsdk")
+
+register_toolchains(
+    "//:kotlin_toolchain",
+    "@androidsdk//:sdk-toolchain", # required for compose Maven dependencies
+    "@androidsdk//:all", # required for compose Maven dependencies
+)
+
+_COMPOSE_VERSION = "1.7.1"
+_KOTLIN_COMPILER_VERSION = "2.0.0"
 
 maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
 maven.install(
     version_conflict_policy = "pinned",
     artifacts = [
-        "androidx.compose.foundation:foundation:1.7.5",
-        "androidx.collection:collection:1.4.0", # pinning for "androidx.compose.foundation:foundation"
-        "androidx.lifecycle:lifecycle-runtime:2.8.3", # pinning for "androidx.compose.foundation:foundation"
+        "org.jetbrains.kotlin:kotlin-compose-compiler-plugin-embeddable:{}".format(_KOTLIN_COMPILER_VERSION),
+
+        "org.jetbrains.compose.foundation:foundation:{}".format(_COMPOSE_VERSION),
+        "org.jetbrains.compose.runtime:runtime:{}".format(_COMPOSE_VERSION),
+        "org.jetbrains.compose.ui:ui:{}".format(_COMPOSE_VERSION),
+        "org.jetbrains.compose.ui:ui-desktop:{}".format(_COMPOSE_VERSION),
+        "org.jetbrains.compose.material3:material3:{}".format(_COMPOSE_VERSION),
+        "org.jetbrains.compose.desktop:desktop-jvm-macos-arm64:{}".format(_COMPOSE_VERSION),
+
+        "androidx.compose.compiler:compiler:1.5.14",
+
+        "androidx.lifecycle:lifecycle-runtime:2.6.1", # pinned from compose Maven dependencies
+        "androidx.activity:activity-ktx:1.7.0", # pinned from compose Maven dependencies
+        "androidx.collection:collection:1.4.0", # pinned from compose Maven dependencies
+        "androidx.lifecycle:lifecycle-viewmodel:2.8.5", # pinned from compose Maven dependencies
+
         "junit:junit:4.13.2",
     ],
     repositories = [
         "https://repo1.maven.org/maven2",
-        "https://maven.google.com/",
-        "https://maven.pkg.jetbrains.space/public/p/compose/dev"
+        "https://maven.google.com/", # required for compose Maven dependencies
+        "https://maven.pkg.jetbrains.space/public/p/compose/dev" # required for compose Maven dependencies
     ],
+    use_starlark_android_rules = True, # make toolchain of `rules_android` discovered instead of trying native Bazel ones
+    aar_import_bzl_label = "@rules_android//rules:rules.bzl", # make toolchain of `rules_android` discovered instead of trying native Bazel ones
 )
 use_repo(maven, "maven")

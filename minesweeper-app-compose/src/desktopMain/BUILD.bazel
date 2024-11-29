@@ -1,0 +1,23 @@
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+
+kt_jvm_library(
+    name = "lib",
+    javac_opts = "//:j17",
+    kotlinc_opts = "//:k17",
+    srcs = [
+        "kotlin/se/dorne/minesweeper/app/Application.kt",
+    ],
+    deps = [
+        "//minesweeper-app-compose/src/commonMain:lib",
+        "@maven//:org_jetbrains_compose_ui_ui_desktop",
+    ],
+    resources = [
+        "resources/compose-multiplatform.xml",
+    ],
+    plugins = [
+        "//:jetpack_compose_compiler_plugin",
+    ],
+    visibility = [
+        "//minesweeper-app-compose:__subpackages__",
+    ],
+)

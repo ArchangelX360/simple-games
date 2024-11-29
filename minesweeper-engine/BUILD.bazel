@@ -9,5 +9,6 @@ kt_jvm_library(
     ],
     visibility = [
         "//minesweeper-app-cli:__pkg__",
+        "//minesweeper-app-compose:__subpackages__",
     ],
 )

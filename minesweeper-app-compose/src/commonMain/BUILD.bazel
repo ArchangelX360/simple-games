@@ -1,0 +1,21 @@
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_library")
+
+# TODO: should be common lib instead of JVM-only
+kt_jvm_library(
+    name = "lib",
+    javac_opts = "//:j17",
+    kotlinc_opts = "//:k17",
+    srcs = [
+        "kotlin/se/dorne/minesweeper/ui/App.kt",
+    ],
+    deps = [
+        "//minesweeper-engine:engine",
+        "@maven//:org_jetbrains_compose_material3_material3",
+    ],
+    plugins = [
+        "//:jetpack_compose_compiler_plugin",
+    ],
+    visibility = [
+        "//minesweeper-app-compose:__subpackages__",
+    ],
+)
