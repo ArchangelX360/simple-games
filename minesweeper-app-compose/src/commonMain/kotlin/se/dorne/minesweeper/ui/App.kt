@@ -10,7 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.input.pointer.PointerButton
+//import androidx.compose.ui.input.pointer.PointerButton
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
 import se.dorne.minesweeper.gameengine.*
@@ -140,10 +140,10 @@ fun minesweeperCell(
             enabled = !showEverything && !cell.state.alreadyRevealed(),
             onLongClick = { onCellClick(cell, Action.MARK_AS_MINE) },
             onClick = { onCellClick(cell, Action.REVEAL) },
-        ).onClick(
+        )/*.onClick(
             // if devices can use a mouse right click
             matcher = PointerMatcher.mouse(PointerButton.Secondary),
-            onClick = { onCellClick(cell, Action.MARK_AS_MINE) }),
+            onClick = { onCellClick(cell, Action.MARK_AS_MINE) })*/,
     ) {
         Box(contentAlignment = Alignment.Center) {
             Text(state.text(showEverything))
